@@ -1,5 +1,5 @@
 *.elc
-anything
+anything-config
 paredit
 slime
 yasnippet
