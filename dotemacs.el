@@ -182,8 +182,8 @@
 (gc-enhance-lisp-mode-map read-expression-map)
 
 ;; advanced paren matching  
-(require 'mic-paren)
-(paren-activate)
+;; (require 'mic-paren)
+;; (paren-activate)
 
 ;; helper key mapping
 (defun gc-byte-compile-buffer-file (&optional load)
@@ -286,8 +286,11 @@ The value is non-nil if there were no error, nil if errors."
 
 ;;;; yasnippet
 (require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory (concat gc-emacs-directory "yasnippet/snippets"))
+(setq yas/snippet-dirs
+      (list
+       (concat gc-emacs-directory "snippets")
+       (concat gc-emacs-directory "yasnippet/snippets")))
+(yas/global-mode 1)
 
 
 ;;;; web
@@ -299,6 +302,8 @@ The value is non-nil if there were no error, nil if errors."
 (setq auto-mode-alist (cons '("\\.js$" . js2-mode)
 			    auto-mode-alist))
 
+(autoload 'zencoding-mode "zencoding-mode" "" t)
+(add-hook 'sgml-mode-hook 'zencoding-mode)
 
 ;;;; autoinsert
 (auto-insert-mode 1)
@@ -306,7 +311,7 @@ The value is non-nil if there were no error, nil if errors."
       '(
         ((html-mode . "HTML")
          "Page title: "
-	 "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" \n
+	 "<!DOCTYPE html>" \n
 	 "<html>" \n
 	 "<head>" \n
 	 "<title>" str "</title>" \n
