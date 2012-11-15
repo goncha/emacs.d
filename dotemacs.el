@@ -6,6 +6,8 @@
 (setq gc-emacs-directory (file-name-directory
 			  (file-chase-links load-file-name)))
 (setq load-path
+      (cons gc-emacs-directory load-path))
+(setq load-path
       (append
        (remove-if-not 'file-directory-p
 		      (cddr (directory-files
@@ -298,7 +300,7 @@ The value is non-nil if there were no error, nil if errors."
 (autoload 'htmlize-many-file "htmlize" "" t)
 (autoload 'htmlize-many-files-dired "" t)
 
-(autoload 'js2-mode "js2" "JavaScript mode" t)
+(autoload 'js2-mode "js2-mode" "JavaScript mode" t)
 (setq auto-mode-alist (cons '("\\.js$" . js2-mode)
 			    auto-mode-alist))
 
