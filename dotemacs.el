@@ -184,8 +184,8 @@
 (gc-enhance-lisp-mode-map read-expression-map)
 
 ;; advanced paren matching  
-;; (require 'mic-paren)
-;; (paren-activate)
+(require 'mic-paren)
+(paren-activate)
 
 ;; helper key mapping
 (defun gc-byte-compile-buffer-file (&optional load)
