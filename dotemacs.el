@@ -50,7 +50,7 @@
 ;; (global-set-key "\C-h" 'delete-backward-char)
 
 
-;;;; gui
+;;;; Customization by OS
 (case window-system
  ;; Windows
  ((w32)
@@ -68,8 +68,15 @@
 
   ;; browse-url
   (setq browse-url-browser-function 'browse-url-firefox)
-  (setq browse-url-firefox-program "C:\\Program Files\\Mozilla Firefox\\firefox.exe"))
+  (setq browse-url-firefox-program "C:\\Program Files\\Mozilla Firefox\\firefox.exe")
 
+  ;; use unix coding-system for tramp link /plink:
+  (add-hook 'find-file-hook #'(lambda ()
+				(let ((file-name (buffer-file-name)))
+				  (if (and file-name
+					   (string-prefix-p "/plink:" file-name))
+				      (setq buffer-file-coding-system 'utf-8-unix))))))
+ 
  ;; X11 in .Xresources
  ((x)
   (setq default-frame-alist
