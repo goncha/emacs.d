@@ -6,7 +6,7 @@ anything-config
 paredit
 slime
 yasnippet
-zencoding
+emmet
 EOF
 )
 do

@@ -274,15 +274,15 @@ The value is non-nil if there were no error, nil if errors."
 
 (setq slime-lisp-implementations
       `((sbcl
-	 (,(expand-file-name "~/local/bin/sbcl")
-	  ;; "--core" ,(expand-file-name "~/local/opt/sbcl/lib/sbcl/sbcl.core")
+	 (,(expand-file-name "~/opt/sbcl/bin/sbcl")
+	  ;; "--core" ,(expand-file-name "~/opt/sbcl/lib/sbcl/sbcl.core")
 	  "--dynamic-space-size" "200"
 	  ;; "--userinit" ,(expand-file-name "~/lisp/user-init.lisp")
 	  )
 	 :coding-system utf-8-unix)
 	(ccl
-	 (,(expand-file-name "~/local/bin/lx86cl64")
-	  ;; "-I" ,(expand-file-name "~/local/opt/ccl/lx86cl64.image")
+	 (,(expand-file-name "~/opt/ccl/bin/lx86cl64")
+	  ;; "-I" ,(expand-file-name "~/opt/ccl/lx86cl64.image")
 	  "-K" "utf-8" "-R" "200000000"
 	  )
 	 :coding-system utf-8-unix)
@@ -311,8 +311,8 @@ The value is non-nil if there were no error, nil if errors."
 (setq auto-mode-alist (cons '("\\.js$" . js2-mode)
 			    auto-mode-alist))
 
-(autoload 'zencoding-mode "zencoding-mode" "" t)
-(add-hook 'sgml-mode-hook 'zencoding-mode)
+(autoload 'emmet-mode "emmet-mode" "" t)
+(add-hook 'sgml-mode-hook 'emmet-mode)
 
 ;;;; autoinsert
 (auto-insert-mode 1)
