@@ -24,6 +24,7 @@
 (setq Info-directory-list
       `(,(concat (file-name-directory (file-chase-links load-file-name)) "info")
 	,@Info-default-directory-list))
+
 ;(setq tramp-shell-prompt-pattern "^.*[#$%>] *")
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -49,43 +50,37 @@
 ;; (global-set-key (kbd "<f1>") 'help-command)
 ;; (global-set-key "\C-h" 'delete-backward-char)
 
+;;;; Frame customization
+(setq default-frame-alist
+      '((vertical-scroll-bars . nil)
+	(background-color . "AliceBlue")
+	(font . "Monaco-9")))
 
 ;;;; Customization by OS
 (case window-system
- ;; Windows
- ((w32)
-  ;; setup default frame style
-  (setq default-frame-alist
-	'((vertical-scroll-bars . nil)
-	  (background-color . "AliceBlue")
-	  (font . "-raster-ProggyCleanSZ-normal-r-normal-normal-10-75-96-96-c-*-iso8859-1")))
+  ;; Windows
+  ((w32)
+   ;; use UNIX eol style
+   ;; (setq default-buffer-file-coding-system 'utf-8-unix)
 
-  ;; use UNIX eol style
-  ;; (setq default-buffer-file-coding-system 'utf-8-unix)
-  
-  ;; PuTTY's plink is default tramp method
-  (setq tramp-default-method "plink")
+   ;; PuTTY's plink is default tramp method
+   (setq tramp-default-method "plink")
 
-  ;; browse-url
-  (setq browse-url-browser-function 'browse-url-firefox)
-  (setq browse-url-firefox-program "C:\\Program Files\\Mozilla Firefox\\firefox.exe")
+   ;; browse-url
+   (setq browse-url-browser-function 'browse-url-firefox)
+   (setq browse-url-firefox-program "C:\\Program Files\\Mozilla Firefox\\firefox.exe")
 
-  ;; use unix coding-system for tramp link /plink:
-  (add-hook 'find-file-hook #'(lambda ()
-				(let ((file-name (buffer-file-name)))
-				  (if (and file-name
-					   (string-prefix-p "/plink:" file-name))
-				      (setq buffer-file-coding-system 'utf-8-unix))))))
- 
- ;; X11 in .Xresources
- ((x)
-  (setq default-frame-alist
-	'((vertical-scroll-bars nil)
-	  (background-color . "AliceBlue")
-	  (font . "-unknown-ProggyCleanTT-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")))
-  ;; C-z freeze emacs under dwm, ooh damn dynamic window managers
-  (global-unset-key (kbd "C-z")))
- )
+   ;; use unix coding-system for tramp link /plink:
+   (add-hook 'find-file-hook #'(lambda ()
+				 (let ((file-name (buffer-file-name)))
+				   (if (and file-name
+					    (string-prefix-p "/plink:" file-name))
+				       (setq buffer-file-coding-system 'utf-8-unix))))))
+
+  ;; X11 in .Xresources
+  ((x)
+   ;; C-z freeze emacs under dwm, ooh damn dynamic window managers
+   (global-unset-key (kbd "C-z"))))
 
 ;;;; start server
 (server-start)
@@ -190,7 +185,7 @@
 ;; nice M-: to input expressions
 (gc-enhance-lisp-mode-map read-expression-map)
 
-;; advanced paren matching  
+;; advanced paren matching
 (require 'mic-paren)
 (paren-activate)
 
@@ -210,7 +205,7 @@ The value is non-nil if there were no error, nil if errors."
   (backward-kill-sexp)
   (condition-case nil
       (prin1 (eval (read (current-kill 0)))
-	      (current-buffer))
+	     (current-buffer))
     (error (message "Invalid expresion")
 	   (insert (current-kill 0)))))
 
@@ -265,9 +260,8 @@ The value is non-nil if there were no error, nil if errors."
 	      (global-set-key (kbd "<f12>") 'slime-selector)
 
 	      (define-key slime-mode-map (kbd "TAB")
-		'slime-indent-and-complete-symbol)
+		'slime-indent-and-complete-symbol)))
 
-	      ))
 (slime-setup '(slime-fancy
 	       slime-fancy-inspector
 	       slime-tramp))
@@ -312,6 +306,7 @@ The value is non-nil if there were no error, nil if errors."
 			    auto-mode-alist))
 
 (autoload 'emmet-mode "emmet-mode" "" t)
+(add-hook 'nxml-mode-hook 'emmet-mode)
 (add-hook 'sgml-mode-hook 'emmet-mode)
 
 ;;;; autoinsert
@@ -324,7 +319,7 @@ The value is non-nil if there were no error, nil if errors."
 	 "<html>" \n
 	 "<head>" \n
 	 "<title>" str "</title>" \n
-	 "</head>\n\n<body>\n" _ "\n</body>\n</html>\n")
+	 "</head>" \n "<body>" \n _ \n"</body>" \n "</html>" \n)
 	((python-mode . "Python")
 	 nil
 	 "# -*- coding: utf-8 -*-" \n
@@ -332,8 +327,8 @@ The value is non-nil if there were no error, nil if errors."
 	 "# Local Variables: **" \n
 	 "# comment-column: 56 **" \n
 	 "# indent-tabs-mode: nil **" \n
-	 "# python-indent: 2 **" \n
-	 "# End: **")
+	 "# python-indent: 4 **" \n
+	 "# End: **" \n)
 	((js2-mode . "JavaScript")
 	 nil
 	 "// -*- coding: utf-8 -*-" \n
@@ -342,7 +337,23 @@ The value is non-nil if there were no error, nil if errors."
 	 "// comment-column: 56 **" \n
 	 "// indent-tabs-mode: nil **" \n
 	 "// js2-basic-offset: 2 **" \n
-	 "// End: **")))
+	 "// End: **" \n)
+	((lisp-mode . "Lisp")
+	 nil
+	 ";; -*- coding: utf-8 -*-" \n
+	 _ \n
+	 ";; Local Variables: **" \n
+	 ";; comment-column: 56 **" \n
+	 ";; indent-tabs-mode: nil **" \n
+	 ";; End: **" \n)
+	((emacs-lisp-mode . "Emacs Lisp")
+	 nil
+	 ";; -*- coding: utf-8 -*-" \n
+	 _ \n
+	 ";; Local Variables: **" \n
+	 ";; comment-column: 56 **" \n
+	 ";; indent-tabs-mode: nil **" \n
+	 ";; End: **" \n)))
 
 ;;;; global keys
 (global-set-key (kbd "<f5>")    'eval-region)
@@ -355,8 +366,12 @@ The value is non-nil if there were no error, nil if errors."
 
 ;;;; global hook
 (setq gc-delete-trailing-whitespaces-modes
-      '(emacs-list-mode
-	python-mode))
+      '(emacs-lisp-mode
+	js2-mode
+	lisp-mode
+	nxml-mode
+	python-mode
+	html-mode))
 (add-hook 'before-save-hook
 	  #'(lambda ()
 	      (when (find major-mode gc-delete-trailing-whitespaces-modes)
@@ -365,4 +380,5 @@ The value is non-nil if there were no error, nil if errors."
 ;; Local Variables: **
 ;; mode: outline-minor **
 ;; comment-column: 56 **
+;; indent-tabs-mode: nil **
 ;; End: **
