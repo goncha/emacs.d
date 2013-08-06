@@ -13,3 +13,6 @@
 [submodule "emmet"]
 	path = emmet
 	url = git@github.com:goncha/emmet.git
+[submodule "js2-mode"]
+	path = js2-mode
+	url = git@github.com:goncha/js2-mode.git
