@@ -1,0 +1,15 @@
+[submodule "anything-config"]
+	path = anything-config
+	url = git@github.com:goncha/anything-config.git
+[submodule "paredit"]
+	path = paredit
+	url = git@github.com:goncha/paredit.git
+[submodule "slime"]
+	path = slime
+	url = git@github.com:goncha/slime.git
+[submodule "yasnippet"]
+	path = yasnippet
+	url = git@github.com:goncha/yasnippet.git
+[submodule "emmet"]
+	path = emmet
+	url = git@github.com:goncha/emmet.git
