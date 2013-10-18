@@ -223,7 +223,6 @@ The value is non-nil if there were no error, nil if errors."
 
 ;;;; anything
 (autoload 'anything "anything")
-(global-set-key (kbd "M-SPC") 'anything)
 (eval-after-load 'anything
   (progn
     (load "anything-config")))
@@ -240,7 +239,6 @@ The value is non-nil if there were no error, nil if errors."
 
 ;;;; git
 (autoload 'git-status "git")
-(global-set-key (kbd "<f9>") 'git-status)
 
 
 ;;;; slime
@@ -257,7 +255,8 @@ The value is non-nil if there were no error, nil if errors."
 	      (setq common-lisp-hyperspec-root
 		    (concat "file://" (expand-file-name "~/Documents/Lisp/HyperSpec/")))
 
-	      (global-set-key (kbd "<f12>") 'slime-selector)
+	      ;; Override imemnu
+	      (global-set-key (kbd "<f11>") 'slime-selector)
 
 	      (define-key slime-mode-map (kbd "TAB")
 		'slime-indent-and-complete-symbol)))
@@ -355,14 +354,15 @@ The value is non-nil if there were no error, nil if errors."
 	 ";; indent-tabs-mode: nil **" \n
 	 ";; End: **" \n)))
 
+
 ;;;; global keys
-(global-set-key (kbd "<f5>")    'eval-region)
-(global-set-key (kbd "<f6>")    'gc-byte-compile-buffer-file)
-(global-set-key (kbd "<f7>")    'gc-eval-and-replace)
-(global-set-key (kbd "<f8>")    'yas/compile-bundle)
-(global-set-key (kbd "<f10>")   'gc-toggle-selective-display)
+(global-set-key (kbd "<f5>")    'gc-byte-compile-buffer-file)
+(global-set-key (kbd "<f6>")    'gc-eval-and-replace)
+(global-set-key (kbd "<f8>")    'browse-url-of-file)
+(global-set-key (kbd "<f9>")    'git-status)
 (global-set-key (kbd "<f11>")   'imenu)
-(global-set-key (kbd "<f12>")   'browse-url-of-file)
+(global-set-key (kbd "<f12>")   'anything)
+
 
 ;;;; global hook
 (setq gc-delete-trailing-whitespaces-modes
