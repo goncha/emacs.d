@@ -354,13 +354,18 @@ The value is non-nil if there were no error, nil if errors."
 	 ";; indent-tabs-mode: nil **" \n
 	 ";; End: **" \n)))
 
+;;;; orgmode
+(setq org-default-notes-file
+      (concat gc-emacs-directory "orgdata/notes.org"))
+
 
 ;;;; global keys
 (global-set-key (kbd "<f5>")    'gc-byte-compile-buffer-file)
 (global-set-key (kbd "<f6>")    'gc-eval-and-replace)
 (global-set-key (kbd "<f8>")    'browse-url-of-file)
 (global-set-key (kbd "<f9>")    'git-status)
-(global-set-key (kbd "<f11>")   'imenu)
+(global-set-key (kbd "<f10>")   'imenu)
+(global-set-key (kbd "<f11>")   'org-capture)
 (global-set-key (kbd "<f12>")   'anything)
 
 
