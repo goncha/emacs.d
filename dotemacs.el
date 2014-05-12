@@ -356,7 +356,7 @@ The value is non-nil if there were no error, nil if errors."
 
 ;;;; orgmode
 (setq org-default-notes-file
-      (concat gc-emacs-directory "orgdata/notes.org"))
+      (concat gc-emacs-directory "org/notes.org"))
 
 
 ;;;; global keys
